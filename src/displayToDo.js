@@ -17,7 +17,7 @@ todoList.forEach((todo) => {
   todoDiv.classList = "todo-item";
 
   const todoButton = document.createElement("input");
-  todoButton.type = "radio";
+  todoButton.type = "checkbox";
   todoButton.classList = "todo-button";
   todoButton.addEventListener('click',()=>{
     popAudio.play()
