@@ -1,0 +1,70 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background: #c0392b;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #8e44ad, #c0392b);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #8e44ad, #c0392b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 100vh;
+
+}
+.content{
+  
+   
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 100px ;
+    overflow: scroll;
+  
+    
+}
+.todo-item{
+    background-color: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(20px);
+    /* border: 1px solid rgb(241, 237, 237); */
+    border-radius: 5px;
+    padding: 5px 10px;
+
+    display: flex;
+    gap: 10px;
+    width: 80%;
+    align-self: center;
+
+    
+}
+
+.todo-button{
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.629);
+    cursor: pointer;
+}
+.todo-content-container{
+    display: flex;
+    flex-direction: column;
+    gap: 2px
+    ;
+}
+.todo-title{
+    font-size: 20px;
+    font-weight: 600;
+}
+.todo-discription{
+    
+}
+
+/* Side bar */
+
+.sidebar{
+    background-color: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(20px);
+    
+}
