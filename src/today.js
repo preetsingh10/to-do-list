@@ -1,5 +1,6 @@
 import popSound from "./audio/pop.mp3";
 import { trashItems } from "./trash";
+import { clearDisplay } from "./displayToDo";
 
 
 const popAudio = new Audio(popSound);
@@ -7,11 +8,9 @@ const div = document.querySelector(".content"); // selecting the content contain
 
 // content DIV
 const contentDiv = document.querySelector(".content");
-function clearDisplay() {
-  contentDiv.innerHTML = " ";
-}
 
-function displayList(list) {
+
+function todayList(list) {
   // ITERATING THROUGH ALL THE TODO OBJECTS
   list.forEach((todo,index) => {
     const todoButton = document.createElement("input"); // TO DO CHECK LIST BUTTON
@@ -22,7 +21,7 @@ function displayList(list) {
       todo.completed = true; // After clicking setting the object property to true
 
       clearDisplay(); // Cleaning the display
-      displayList(list); // Re render the whole List
+      todayList(list); // Re render the whole List
       console.log(todo);
     });
     const todoDiv = document.createElement("div");
@@ -44,7 +43,7 @@ function displayList(list) {
         trashItems.push(todo)
         list.splice(index,1)
         clearDisplay()
-        displayList(list)
+        todayList(list)
     })
 
 
@@ -52,7 +51,9 @@ function displayList(list) {
     todoTitle.textContent = todo.title;
     todoDiscription.textContent = todo.description;
 
-    if (todo.completed === false) {
+    // today date logic
+    const today = new Date()
+    if (todo.dueDate === today.toDateString() && todo.completed === false) {
       div.appendChild(todoDiv);
 
       todoDiv.appendChild(todoButton);
@@ -74,5 +75,5 @@ function displayList(list) {
   });
 }
 
-export default displayList;
-export { clearDisplay };
+export default todayList;
+

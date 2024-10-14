@@ -1,28 +1,20 @@
 import popSound from "./audio/pop.mp3";
-import { trashItems } from "./trash";
-
-
 const popAudio = new Audio(popSound);
 const div = document.querySelector(".content"); // selecting the content container
-
-// content DIV
-const contentDiv = document.querySelector(".content");
-function clearDisplay() {
-  contentDiv.innerHTML = " ";
-}
-
-function displayList(list) {
+import { clearDisplay } from "./displayToDo";
+function completedList(list) {
   // ITERATING THROUGH ALL THE TODO OBJECTS
-  list.forEach((todo,index) => {
+  list.forEach((todo, index) => {
     const todoButton = document.createElement("input"); // TO DO CHECK LIST BUTTON
     todoButton.type = "checkbox";
+    todoButton.checked = true;
     todoButton.classList = "todo-button";
     todoButton.addEventListener("click", () => {
       popAudio.play(); // MAKES THE POP SOUND ON CLICK
-      todo.completed = true; // After clicking setting the object property to true
+      todo.completed = false; // After clicking setting the object property to false
 
       clearDisplay(); // Cleaning the display
-      displayList(list); // Re render the whole List
+      completedList(list); // Re render the whole List
       console.log(todo);
     });
     const todoDiv = document.createElement("div");
@@ -37,42 +29,19 @@ function displayList(list) {
     const todoDiscription = document.createElement("p");
     todoDiscription.classList = "todo-discription";
 
-    const deleteTodo = document.createElement("button")
-    deleteTodo.classList = "delete-todo"
-  
-    deleteTodo.addEventListener('click',()=>{
-        trashItems.push(todo)
-        list.splice(index,1)
-        clearDisplay()
-        displayList(list)
-    })
-
-
-
     todoTitle.textContent = todo.title;
     todoDiscription.textContent = todo.description;
 
-    if (todo.completed === false) {
+    if (todo.completed === true) {
       div.appendChild(todoDiv);
 
       todoDiv.appendChild(todoButton);
       todoDiv.appendChild(todoContentContainer);
-      todoDiv.appendChild(deleteTodo)
 
       todoContentContainer.appendChild(todoTitle);
       todoContentContainer.appendChild(todoDiscription);
-    
-      if(todo.dueDate){
-        const dueDate = document.createElement('p')
-        dueDate.classList = 'due-date'
-        dueDate.textContent = `Due date: ${todo.dueDate}`
-        todoContentContainer.appendChild(dueDate)
-        }
-        
-   
     }
   });
 }
 
-export default displayList;
-export { clearDisplay };
+export { completedList };
