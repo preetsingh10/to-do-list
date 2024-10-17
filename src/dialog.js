@@ -16,21 +16,28 @@ cancelButton.addEventListener("click", (e) => {
 
 dialogForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const formData = new FormData(e.target)
+  const formData = new FormData(e.target);
 
-  const title = formData.get('title')
-  const discription = formData.get('discription')
-  const date = formData.get('date')
+  const title = formData.get("title");
+  const discription = formData.get("discription");
+  const date = formData.get("date");
+  const priority = formData.get("priority")
 
-  const newTask = new ToDo(title, discription)
-newTask.setDueDate(date)
-  todoList.push(newTask)
+  const newTask = new ToDo(title, discription);
+  if(date){
+    newTask.setDueDate(date);
 
-  clearDisplay()
-  displayList(todoList)
+  }
+ if(priority){
+    newTask.setPriority(true)
+ }
+  todoList.push(newTask);
 
-  dialogForm.reset()
-  dialog.close()
+  clearDisplay();
+  displayList(todoList);
+
+  dialogForm.reset();
+  dialog.close();
 });
 
 export { dialog };

@@ -7,13 +7,17 @@ class ToDo {
 
 
   setDueDate(date) {
-    const dateObject = new Date(date);
-    this.dueDate = dateObject.toDateString()
+    this.dateObject = new Date(date);
+    this.dueDate = this.dateObject.toDateString()
     
   }
 
   setPriority(priority) {
     this.priority = priority;
+  }
+
+  setProject(projectName){
+    this.project = projectName
   }
 }
 
