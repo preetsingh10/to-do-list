@@ -3,13 +3,14 @@ import displayList from "./displayToDo";
 import { clearDisplay } from "./displayToDo";
 import { completedList } from "./completed";
 import trashList from "./trash";
-import { trashItems } from "./trash";
+// import { trashItems } from "./trash";
 import todayList from "./today";
 import upcomingList from "./upcoming";
 import { dialog } from "./addTodoDialog"; // Dialog Element
 
 // import { todoList } from "./todoList";
 let todoList = JSON.parse(localStorage.getItem('todoList'))
+
 
 // content DIV
 const contentDiv = document.querySelector(".content");
@@ -59,6 +60,8 @@ completed.addEventListener("click", () => {
 
 trash.addEventListener("click", () => {
   contentHeading.textContent = "Deleted Task's";
+  let trashItems = JSON.parse(localStorage.getItem('trashList'))
+  
   clearDisplay();
   trashList(trashItems);
 });

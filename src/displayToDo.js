@@ -1,5 +1,5 @@
 import popSound from "./audio/pop.mp3";
-import { trashItems } from "./trash";
+// import { trashItems } from "./trash";
 import editDialog from "./editTodoDialog";
 import { editTodo } from "./editTodoDialog";
 
@@ -27,6 +27,8 @@ const contentDiv = document.querySelector(".content");
 // notificaiton element
 const trashNotification = document.querySelector(".trash-notification");
 const completedNotification = document.querySelector(".completed-notification");
+
+let trashItems = JSON.parse(localStorage.getItem('trashList'))
 
 // function to clear display
 function clearDisplay() {
@@ -97,7 +99,14 @@ function displayList(list) {
 
     deleteTodo.addEventListener("click", () => {
       trashItems.push(todo);
+
+      localStorage.setItem('trashList',JSON.stringify(trashItems))
       list.splice(index, 1);
+
+      let objectArray = JSON.parse(localStorage.getItem('todoList'))
+      objectArray.splice(index,1)
+      localStorage.setItem('todoList', JSON.stringify(objectArray)) 
+
       clearDisplay();
       displayList(list);
 
