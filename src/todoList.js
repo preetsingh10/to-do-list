@@ -23,3 +23,4 @@ todo1.setProject("Home");
 todoList.push(todo1, todo2, todo3);
 
 localStorage.setItem("todoList", JSON.stringify(todoList));
+export {todoList}

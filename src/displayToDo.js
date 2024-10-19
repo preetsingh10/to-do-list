@@ -49,8 +49,12 @@ function displayList(list) {
 
     todoButton.addEventListener("click", () => {
       playSound(); // MAKES THE POP SOUND ON CLICK
-      todo.completed = true; // After clicking setting the object property to true
+      todo.completed = true; // After clicking setting the object property to true 
 
+      let objectArray = JSON.parse(localStorage.getItem('todoList'))
+      objectArray[index].completed = true
+      localStorage.setItem('todoList', JSON.stringify(objectArray))
+      
       let completedTasks = list.filter((task) => task.completed === true);
       completedNotification.textContent = completedTasks.length;
       completedNotification.classList = "notification";

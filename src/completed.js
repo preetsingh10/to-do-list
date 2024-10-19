@@ -6,7 +6,7 @@ const completedNotification = document.querySelector(".completed-notification");
 
 function completedList(list) {
   // ITERATING THROUGH ALL THE TODO OBJECTS
-  list.forEach((todo) => {
+  list.forEach((todo,index) => {
     const todoButton = document.createElement("input"); // TO DO CHECK LIST BUTTON
     todoButton.type = "checkbox";
     todoButton.checked = true;
@@ -15,6 +15,10 @@ function completedList(list) {
       playSound(); // MAKES THE POP SOUND ON CLICK
       todo.completed = false; // After clicking setting the object property to false
 
+      let objectArray = JSON.parse(localStorage.getItem('todoList'))
+      objectArray[index].completed = false
+      localStorage.setItem('todoList', JSON.stringify(objectArray))
+      
       let completedTasks = list.filter((task) => task.completed === true);
 
       if(completedTasks.length > 0){

@@ -8,6 +8,7 @@ import todayList from "./today";
 import upcomingList from "./upcoming";
 import { dialog } from "./addTodoDialog"; // Dialog Element
 
+// import { todoList } from "./todoList";
 let todoList = JSON.parse(localStorage.getItem('todoList'))
 
 // content DIV
@@ -33,6 +34,7 @@ addTask.addEventListener("click", () => {
 general.addEventListener("click", () => {
   contentHeading.textContent = "General";
   clearDisplay();
+  todoList = JSON.parse(localStorage.getItem('todoList'))
   displayList(todoList);
 });
 
@@ -63,4 +65,4 @@ trash.addEventListener("click", () => {
 
 contentHeading.textContent = "General";
 
-displayList(todoList, contentDiv);
+displayList(todoList);
