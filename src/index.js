@@ -6,9 +6,9 @@ import trashList from "./trash";
 import { trashItems } from "./trash";
 import todayList from "./today";
 import upcomingList from "./upcoming";
-import { dialog } from "./dialog"; // Dialog Element
+import { dialog } from "./addTodoDialog"; // Dialog Element
 
-import ToDo from "./ToDo";
+let todoList = JSON.parse(localStorage.getItem('todoList'))
 
 // content DIV
 const contentDiv = document.querySelector(".content");
@@ -23,19 +23,6 @@ const today = document.querySelector(".today-listItem");
 const upcoming = document.querySelector(".upcoming-listItem");
 const completed = document.querySelector(".completed-listItem");
 const trash = document.querySelector(".trash-listItem");
-
-// sample to do objects
-
-const todo1 = new ToDo("Go to the gym", "Do legs don't skip it");
-const todo2 = new ToDo("Make breakfast", "Scramble eggs and oatmeal");
-const todo3 = new ToDo("Grossary", "eggs,oats,coffee beans,rice");
-todo1.setDueDate("2024-12-10");
-todo2.setDueDate("2024-12-11");
-todo3.setDueDate("2024-12-12");
-todo1.setPriority(true)
-todo1.setProject("Home")
-
-export let todoList = [todo1, todo2,todo3];
 
 // event listeners
 
@@ -53,13 +40,13 @@ today.addEventListener("click", () => {
   contentHeading.textContent = "Today";
   clearDisplay();
   todayList(todoList);
-  console.log(todoList)
+  console.log(todoList);
 });
 
 upcoming.addEventListener("click", () => {
   contentHeading.textContent = "Up Coming Tasks's";
-  clearDisplay()
-  upcomingList(todoList)
+  clearDisplay();
+  upcomingList(todoList);
 });
 
 completed.addEventListener("click", () => {
@@ -72,7 +59,6 @@ trash.addEventListener("click", () => {
   contentHeading.textContent = "Deleted Task's";
   clearDisplay();
   trashList(trashItems);
-
 });
 
 contentHeading.textContent = "General";

@@ -1,7 +1,5 @@
-import popSound from "./audio/pop.mp3";
-import { clearDisplay } from "./displayToDo";
+import { clearDisplay, playSound } from "./displayToDo";
 
-const popAudio = new Audio(popSound);
 const div = document.querySelector(".content"); // selecting the content container
 const completedNotification = document.querySelector(".completed-notification");
 
@@ -12,9 +10,9 @@ function completedList(list) {
     const todoButton = document.createElement("input"); // TO DO CHECK LIST BUTTON
     todoButton.type = "checkbox";
     todoButton.checked = true;
-    todoButton.classList = "todo-button";
+    todoButton.classList.add("todo-button");
     todoButton.addEventListener("click", () => {
-      popAudio.play(); // MAKES THE POP SOUND ON CLICK
+      playSound(); // MAKES THE POP SOUND ON CLICK
       todo.completed = false; // After clicking setting the object property to false
 
       let completedTasks = list.filter((task) => task.completed === true);
@@ -34,6 +32,18 @@ function completedList(list) {
     const todoDiv = document.createElement("div");
     todoDiv.classList = "todo-item";
 
+    let alreadyExpanded = false 
+    todoDiv.addEventListener('click',()=>{
+     
+      if(alreadyExpanded === false){
+        todoDiscription.style.whiteSpace = 'pre-wrap';
+        alreadyExpanded = true
+      }else{
+        todoDiscription.style.whiteSpace = 'normal';
+        alreadyExpanded = false
+
+      }
+    })
     const todoContentContainer = document.createElement("div");
     todoContentContainer.classList = "todo-content-container";
 

@@ -1,12 +1,28 @@
 import popSound from "./audio/pop.mp3";
 import { trashItems } from "./trash";
+import editDialog from "./editTodoDialog";
+import { editTodo } from "./editTodoDialog";
 
-const popAudio = new Audio(popSound);
 const div = document.querySelector(".content"); // selecting the content container
 const projectListContainer = document.querySelector("project-list-container");
 
 // content DIV
 const contentDiv = document.querySelector(".content");
+
+
+
+
+// // edit dialog element
+// const editDialog = document.querySelector(".edit-todo-dialog");
+// const cancelButton = document.querySelector(".cancel-edit-button");
+
+// const dialogForm = document.querySelector(".edit-form");
+
+// // edit input elements
+// const  editTitle = document.querySelector("#edit-title");
+// const  editDiscription = document.querySelector("#edit-discription");
+// const editDate = document.querySelector("#edit-date");
+// const editPriority = document.querySelector("#edit-priority");
 
 // notificaiton element
 const trashNotification = document.querySelector(".trash-notification");
@@ -14,61 +30,13 @@ const completedNotification = document.querySelector(".completed-notification");
 
 // function to clear display
 function clearDisplay() {
-  contentDiv.innerHTML = " ";
+  contentDiv.innerHTML = "";
 }
 
-// function to display single Todo
-
-function displayTodo(todoObject) {
-  const todoButton = document.createElement("input"); // TO DO CHECK LIST BUTTON
-
-  todoButton.type = "checkbox";
-  todoButton.classList = "todo-button";
-  todoButton.addEventListener("click", () => {
-    popAudio.play(); // MAKES THE POP SOUND ON CLICK
-    todoObject.completed = false; // After clicking setting the object property to true
-
-    clearDisplay(); // Cleaning the display
-    displayTodo(todoObject); // Re render the whole List
-  });
-  const todoDiv = document.createElement("div");
-  todoDiv.classList = "todo-item";
-
-  const todoContentContainer = document.createElement("div");
-  todoContentContainer.classList = "todo-content-container";
-
-  const todoTitle = document.createElement("p");
-  todoTitle.classList = "todo-title";
-
-  const todoDiscription = document.createElement("p");
-  todoDiscription.classList = "todo-discription";
-
-  const deleteTodo = document.createElement("button");
-  deleteTodo.classList = "delete-todo";
-
-  deleteTodo.addEventListener("click", () => {
-    trashItems.push(todo);
-    list.splice(index, 1);
-    clearDisplay();
-    displayTodo(todoObject);
-
-    trashNotification.textContent = trashItems.length;
-    trashNotification.classList = "notification";
-  });
-
-  todoTitle.textContent = todoObject.title;
-  todoDiscription.textContent = todoObject.description;
-
-  // check for the task completion
-
-    div.appendChild(todoDiv);
-
-    todoDiv.appendChild(todoButton);
-    todoDiv.appendChild(todoContentContainer);
-    todoDiv.appendChild(deleteTodo);
-
-    todoContentContainer.appendChild(todoTitle);
-    todoContentContainer.appendChild(todoDiscription);
+// function to play sound on completion
+function playSound() {
+  const popAudio = new Audio(popSound);
+  popAudio.play();
 }
 
 function displayList(list) {
@@ -78,9 +46,9 @@ function displayList(list) {
 
     todoButton.type = "checkbox";
     todoButton.classList = "todo-button";
-    
+
     todoButton.addEventListener("click", () => {
-      popAudio.play(); // MAKES THE POP SOUND ON CLICK
+      playSound(); // MAKES THE POP SOUND ON CLICK
       todo.completed = true; // After clicking setting the object property to true
 
       let completedTasks = list.filter((task) => task.completed === true);
@@ -89,8 +57,8 @@ function displayList(list) {
 
       clearDisplay(); // Cleaning the display
       displayList(list); // Re render the whole List
-      console.log(todo);
     });
+
     const todoDiv = document.createElement("div");
     todoDiv.classList = "todo-item";
 
@@ -102,6 +70,23 @@ function displayList(list) {
 
     const todoDiscription = document.createElement("p");
     todoDiscription.classList = "todo-discription";
+
+    const editButton = document.createElement("button");
+    editButton.classList = "edit-button";
+    editButton.textContent = "Edit";
+
+    // edit button event handler
+
+    editButton.addEventListener("click", () => {
+      // editDialog.showModal();
+      // editTodo(todo,list)
+      const titleInput = document.createElement('input')
+      titleInput.type = 'text'
+      titleInput.value = todo.title;
+      titleInput.classList.add('todo-title')
+      todoContentContainer.replaceChild(titleInput,todoTitle)
+      
+    });
 
     const deleteTodo = document.createElement("button");
     deleteTodo.classList = "delete-todo";
@@ -117,7 +102,7 @@ function displayList(list) {
     });
 
     todoTitle.textContent = todo.title;
-    todoDiscription.textContent = todo.description;
+    todoDiscription.textContent = todo.discription;
 
     // check for the task completion
     if (todo.completed === false) {
@@ -125,6 +110,7 @@ function displayList(list) {
 
       todoDiv.appendChild(todoButton);
       todoDiv.appendChild(todoContentContainer);
+      todoDiv.appendChild(editButton);
       todoDiv.appendChild(deleteTodo);
 
       todoContentContainer.appendChild(todoTitle);
@@ -138,19 +124,20 @@ function displayList(list) {
           console.log("i am here daddy");
           const dueDate = document.createElement("p");
           dueDate.classList = "due-date";
-          dueDate.textContent = `Due date: ${todo.dueDate}`;
+          dueDate.textContent = `Due on ${todo.dueDate}`;
           dueDate.style.textDecoration = "line-through";
           todoContentContainer.appendChild(dueDate);
         } else {
           const dueDate = document.createElement("p");
           dueDate.classList = "due-date";
-          dueDate.textContent = `Due date: ${todo.dueDate}`;
+          dueDate.textContent = `Due on ${todo.dueDate}`;
           todoContentContainer.appendChild(dueDate);
         }
       }
 
       if (todo.priority) {
         todoDiv.className = "important todo-item";
+        todoButton.classList.add('important-todo-buttn')
       }
 
       //   if(todo.project){
@@ -165,4 +152,4 @@ function displayList(list) {
 }
 
 export default displayList;
-export { clearDisplay,displayTodo };
+export { clearDisplay, playSound };

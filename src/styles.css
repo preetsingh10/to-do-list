@@ -5,10 +5,17 @@
 }
 
 body {
-    background: #67B26F;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #4ca2cd, #67B26F);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #4ca2cd, #67B26F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        
+  background: #67b26f; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #4ca2cd,
+    #67b26f
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #4ca2cd,
+    #67b26f
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
   display: grid;
   grid-template-columns: 1fr 4fr;
@@ -22,9 +29,9 @@ body {
   overflow: scroll;
 }
 .todo-item {
-  background-color: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(20px);
-  /* border: 1px solid rgb(241, 237, 237); */
+  background-color: rgba(255, 255, 255, 0.307);
+  /* background-color: transparent; */
+    backdrop-filter: blur(20px);
   border-radius: 5px;
   padding: 5px 10px;
 
@@ -33,16 +40,26 @@ body {
   width: 80%;
   align-self: center;
   line-height: 1.6;
+  cursor: pointer;
 }
 
 .todo-button {
   width: 20px;
   height: 20px;
-  border: none;
-  border-radius: 30px;
+  border-radius: 40px;
   background-color: rgba(255, 255, 255, 0.629);
-  align-self: center;
+  align-self: flex-start;
   cursor: pointer;
+  appearance: none;
+  border: 2px solid green;
+  margin-top: 0.5em;
+}
+.todo-button input:checked{
+  background-color: rgba(0, 128, 0, 0.477);
+}
+
+.important-todo-buttn{
+  border: 2px solid red;
 }
 .todo-content-container {
   display: flex;
@@ -54,26 +71,43 @@ body {
   font-weight: 500;
 }
 .todo-discription {
-    font-weight: 400;
+  font-weight: 400;
+}
+
+.edit-button{
+  margin-left: auto;
+  cursor: pointer;
+  padding: 5px 10px;
+  align-self: center;
+  border: 3px solid black;
+  color: black;
+  border-radius: 7px;
+  background-color: transparent;
+}
+.edit-button:hover{
+  background-color: black;
+  color: white;
 }
 
 .delete-todo {
-  margin-left: auto;
   align-self: center;
-  height: 24px;
-  width: 24px;
+  height: 30px;
+  width: 30px;
   background-color: transparent;
   border: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 -960 960 960' width='24px' fill='%23000000'%3E%3Cpath d='M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='30px' viewBox='0 -960 960 960' width='30px' fill='%23000000'%3E%3Cpath d='M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   cursor: pointer;
+}
+.delete-todo:hover {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='30px' viewBox='0 -960 960 960' width='30px' fill='red'%3E%3Cpath d='M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z'/%3E%3C/svg%3E");
 }
 
 /* Side bar */
 
 .sidebar {
-    background-color: rgba(255, 255, 255, 0.187);
-    backdrop-filter: blur(20px);
+  background-color: rgba(255, 255, 255, 0.187);
+  backdrop-filter: blur(20px);
   padding: 20px;
 
   display: flex;
@@ -115,17 +149,15 @@ svg {
   background-color: rgba(255, 255, 255, 0.163);
 }
 
-.notification{
-
-    font-weight: 300;
-    font-size: 15px;
-    margin-left: auto;
-    margin-right: 50px;
-    background-color: rgba(0, 0, 0, 0.859);
-    color: white;
-    padding: 2.5px 7px;
-    border-radius: 100px;
-   
+.notification {
+  font-weight: 300;
+  font-size: 15px;
+  margin-left: auto;
+  margin-right: 50px;
+  background-color: rgba(0, 0, 0, 0.859);
+  color: white;
+  padding: 2.5px 7px;
+  border-radius: 100px;
 }
 
 /* DIALOG  */
@@ -156,7 +188,7 @@ dialog form {
   width: 30em;
 }
 #title,
-#discription {
+#discription,#edit-title, #edit-discription {
   margin-left: 10px;
   background-color: transparent;
   border: none;
@@ -167,14 +199,15 @@ dialog form {
 ::placeholder {
   color: black;
 }
-#title {
+#title, #edit-title {
   font-size: 20px;
   font-weight: 500;
 
   margin-top: 10px;
 }
-#discription {
-    font-size: 15px;
+#discription, #edit-discription {
+  font-size: 15px;
+  resize: none;
 
   margin-top: 10px;
   margin-bottom: 10px;
@@ -193,7 +226,7 @@ dialog form {
   transition-duration: 0.1s;
 }
 .cancel-button,
-.addTask-button {
+.addTask-button, .cancel-edit-button, .saveChanges-button {
   outline: none;
   cursor: pointer;
   font-size: 16px;
@@ -204,30 +237,31 @@ dialog form {
   border: none;
   color: #fff;
 }
-.cancel-button {
+.cancel-button, .cancel-edit-button {
   background-color: red;
 }
-.addTask-button {
+.addTask-button, .saveChanges-button {
   background-color: rgb(36, 174, 36);
   margin-right: 10px;
 }
 
-#date{
-    background-color: #fdfdfd55;
-    border: none;
-   
-}
-.due-date{
-    background-color: rgba(227, 108, 108, 0.56);
-    border-radius: 5px;
-    padding: 2px;
 
+/* date elements */
+#date,#edit-date {
+  background-color: #fdfdfd55;
+  border: none;
 }
-.date-priority-container{
-    display: flex;
-    justify-content: space-between;
+.due-date {
+  background-color: rgba(239, 62, 62, 0.408);
+
+  border-radius: 5px;
+  padding: 1px 5px;
+  width: fit-content;
 }
-.important{
-    border-left: 10px solid red;
+.date-priority-container {
+  display: flex;
+  justify-content: space-between;
 }
- 
+.important {
+  border-left: 10px solid red;
+}

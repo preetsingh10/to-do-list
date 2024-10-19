@@ -1,14 +1,17 @@
+import {format} from "date-fns";
 class ToDo {
-  constructor(title, description) {
+  constructor(title, discription) {
     this.title = title;
-    this.description = description;
+    this.discription = discription;
     this.completed = false;
   }
 
 
   setDueDate(date) {
     this.dateObject = new Date(date);
-    this.dueDate = this.dateObject.toDateString()
+    
+    this.dueDate = format(date,"dd/MM/yyyy")
+    this.date = date
     
   }
 

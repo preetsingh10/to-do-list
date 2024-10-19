@@ -8,9 +8,22 @@ const contentDiv = document.querySelector(".content");
 
 function trashList(list) {
   // ITERATING THROUGH ALL THE TODO OBJECTS
-  list.forEach((todo, index) => {
+  list.forEach((todo,) => {
     const todoDiv = document.createElement("div");
     todoDiv.classList = "todo-item";
+
+    let alreadyExpanded = false 
+    todoDiv.addEventListener('click',()=>{
+     
+      if(alreadyExpanded === false){
+        todoDiscription.style.whiteSpace = 'pre-wrap';
+        alreadyExpanded = true
+      }else{
+        todoDiscription.style.whiteSpace = 'normal';
+        alreadyExpanded = false
+
+      }
+    })
 
     const todoContentContainer = document.createElement("div");
     todoContentContainer.classList = "todo-content-container";
