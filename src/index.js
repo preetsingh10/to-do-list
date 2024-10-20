@@ -3,14 +3,13 @@ import displayList from "./displayToDo";
 import { clearDisplay } from "./displayToDo";
 import { completedList } from "./completed";
 import trashList from "./trash";
-// import { trashItems } from "./trash";
 import todayList from "./today";
 import upcomingList from "./upcoming";
 import { dialog } from "./addTodoDialog"; // Dialog Element
+import { completedNotification,trashNotification } from "./displayToDo";
 
 // import { todoList } from "./todoList";
-let todoList = JSON.parse(localStorage.getItem('todoList'))
-
+let todoList = JSON.parse(localStorage.getItem("todoList"));
 
 // content DIV
 const contentDiv = document.querySelector(".content");
@@ -35,7 +34,7 @@ addTask.addEventListener("click", () => {
 general.addEventListener("click", () => {
   contentHeading.textContent = "General";
   clearDisplay();
-  todoList = JSON.parse(localStorage.getItem('todoList'))
+  todoList = JSON.parse(localStorage.getItem("todoList"));
   displayList(todoList);
 });
 
@@ -59,13 +58,32 @@ completed.addEventListener("click", () => {
 });
 
 trash.addEventListener("click", () => {
-  contentHeading.textContent = "Deleted Task's";
-  let trashItems = JSON.parse(localStorage.getItem('trashList'))
-  
+  contentHeading.textContent = "Trash Items";
+  let trashItems = JSON.parse(localStorage.getItem("trashList"));
+
   clearDisplay();
   trashList(trashItems);
 });
 
 contentHeading.textContent = "General";
 
-displayList(todoList);
+displayList(todoList); // to display the todo list on refresh
+
+
+
+// sidbar notifiactions
+
+// for the completed task notification on refresh and general
+let completedTasks = todoList.filter((todo) => todo.completed === true).length
+if(completedTasks > 0){
+  completedNotification.textContent = completedTasks;
+  completedNotification.classList.add("notification");
+}
+
+let trashItems = JSON.parse(localStorage.getItem("trashList")).length;
+if(trashItems > 0){
+  trashNotification.textContent = trashItems;
+  trashNotification.classList.add("notification");
+}
+
+export { todoList };

@@ -1,14 +1,14 @@
-import displayList from "./displayToDo";
-import popSound from "./audio/pop.mp3";
+import { clearDisplay } from "./displayToDo";
+import { trashNotification } from "./displayToDo";
 
-let trashItems = [];
+let trashItems = JSON.parse(localStorage.getItem("trashList"));
 
 // content DIV
 const contentDiv = document.querySelector(".content");
 
 function trashList(list) {
   // ITERATING THROUGH ALL THE TODO OBJECTS
-  list.forEach((todo,) => {
+  list.forEach((todo,index) => {
     const todoDiv = document.createElement("div");
     todoDiv.classList = "todo-item";
 
@@ -30,19 +30,34 @@ function trashList(list) {
 
     const todoTitle = document.createElement("p");
     todoTitle.classList = "todo-title";
+    todoTitle.textContent = todo.title;
 
     const todoDiscription = document.createElement("p");
     todoDiscription.classList = "todo-discription";
-
-    todoTitle.textContent = todo.title;
     todoDiscription.textContent = todo.description;
+
+    const deleteButton = document.createElement('button')
+    deleteButton.classList.add('delete-button')
+    deleteButton.textContent = "Delete"
+    deleteButton.addEventListener('click',()=>{
+      list.splice(index,1)
+      localStorage.setItem('trashList', JSON.stringify(list))
+      clearDisplay()
+      trashList(list)
+      trashNotification.textContent = list.length
+
+      if(list.length === 0){
+        trashNotification.textContent = ''
+        trashNotification.classList = ''
+      }
+    })
 
     contentDiv.appendChild(todoDiv);
 
     todoDiv.appendChild(todoContentContainer);
-
     todoContentContainer.appendChild(todoTitle);
     todoContentContainer.appendChild(todoDiscription);
+    todoDiv.appendChild(deleteButton)
   });
 }
 

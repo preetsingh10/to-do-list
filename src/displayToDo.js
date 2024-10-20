@@ -28,7 +28,7 @@ const contentDiv = document.querySelector(".content");
 const trashNotification = document.querySelector(".trash-notification");
 const completedNotification = document.querySelector(".completed-notification");
 
-let trashItems = JSON.parse(localStorage.getItem('trashList'))
+
 
 // function to clear display
 function clearDisplay() {
@@ -59,7 +59,7 @@ function displayList(list) {
       
       let completedTasks = list.filter((task) => task.completed === true);
       completedNotification.textContent = completedTasks.length;
-      completedNotification.classList = "notification";
+      completedNotification.classList.add("notification");
 
       clearDisplay(); // Cleaning the display
       displayList(list); // Re render the whole List
@@ -98,6 +98,7 @@ function displayList(list) {
     deleteTodo.classList = "delete-todo";
 
     deleteTodo.addEventListener("click", () => {
+      let trashItems = JSON.parse(localStorage.getItem('trashList'))
       trashItems.push(todo);
 
       localStorage.setItem('trashList',JSON.stringify(trashItems))
@@ -165,4 +166,4 @@ function displayList(list) {
 }
 
 export default displayList;
-export { clearDisplay, playSound };
+export { clearDisplay, playSound , completedNotification, trashNotification};
