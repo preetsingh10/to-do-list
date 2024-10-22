@@ -26,8 +26,8 @@ let isEditOpen = false;
 function displayList(list, index) {
   // ITERATING THROUGH ALL THE TODO OBJECTS
   list.forEach((todo, index) => {
+    
     const todoButton = document.createElement("input"); // TO DO CHECK LIST BUTTON
-
     todoButton.type = "checkbox";
     todoButton.classList = "todo-button";
 
