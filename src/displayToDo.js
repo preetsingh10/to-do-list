@@ -1,7 +1,5 @@
 import popSound from "./audio/pop.mp3";
-// import { trashItems } from "./trash";
-import editDialog from "./editTodoDialog";
-import { editTodo } from "./editTodoDialog";
+import { format } from "date-fns";
 
 const div = document.querySelector(".content"); // selecting the content container
 const projectListContainer = document.querySelector("project-list-container");
@@ -9,26 +7,9 @@ const projectListContainer = document.querySelector("project-list-container");
 // content DIV
 const contentDiv = document.querySelector(".content");
 
-
-
-
-// // edit dialog element
-// const editDialog = document.querySelector(".edit-todo-dialog");
-// const cancelButton = document.querySelector(".cancel-edit-button");
-
-// const dialogForm = document.querySelector(".edit-form");
-
-// // edit input elements
-// const  editTitle = document.querySelector("#edit-title");
-// const  editDiscription = document.querySelector("#edit-discription");
-// const editDate = document.querySelector("#edit-date");
-// const editPriority = document.querySelector("#edit-priority");
-
 // notificaiton element
 const trashNotification = document.querySelector(".trash-notification");
 const completedNotification = document.querySelector(".completed-notification");
-
-
 
 // function to clear display
 function clearDisplay() {
@@ -40,8 +21,9 @@ function playSound() {
   const popAudio = new Audio(popSound);
   popAudio.play();
 }
+let isEditOpen = false;
 
-function displayList(list) {
+function displayList(list, index) {
   // ITERATING THROUGH ALL THE TODO OBJECTS
   list.forEach((todo, index) => {
     const todoButton = document.createElement("input"); // TO DO CHECK LIST BUTTON
@@ -51,12 +33,12 @@ function displayList(list) {
 
     todoButton.addEventListener("click", () => {
       playSound(); // MAKES THE POP SOUND ON CLICK
-      todo.completed = true; // After clicking setting the object property to true 
+      todo.completed = true; // After clicking setting the object property to true
 
-      let objectArray = JSON.parse(localStorage.getItem('todoList'))
-      objectArray[index].completed = true
-      localStorage.setItem('todoList', JSON.stringify(objectArray))
-      
+      let objectArray = JSON.parse(localStorage.getItem("todoList"));
+      objectArray[index].completed = true;
+      localStorage.setItem("todoList", JSON.stringify(objectArray));
+
       let completedTasks = list.filter((task) => task.completed === true);
       completedNotification.textContent = completedTasks.length;
       completedNotification.classList.add("notification");
@@ -84,29 +66,143 @@ function displayList(list) {
     // edit button event handler
 
     editButton.addEventListener("click", () => {
-      // editDialog.showModal();
-      // editTodo(todo,list)
-      const titleInput = document.createElement('input')
-      titleInput.type = 'text'
+      todoDiv.removeChild(editButton);
+
+      const titleInput = document.createElement("input");
+      titleInput.type = "text";
       titleInput.value = todo.title;
-      titleInput.classList.add('todo-title')
-      todoContentContainer.replaceChild(titleInput,todoTitle)
+      titleInput.id = "title";
+
+      const discriptionInput = document.createElement("textarea");
+      discriptionInput.rows = 5;
+      discriptionInput.cols = 10;
+      if (todo.discription === "") {
+        discriptionInput.placeholder = "Discription..";
+      } else {
+        discriptionInput.value = todo.discription;
+      }
+      discriptionInput.id = "discription";
+
+      const dateInput = document.createElement('input')
+      dateInput.type = 'date'
+      dateInput.id = 'date'
+      dateInput.style.width = 'fit-content'
+
+    
+      if(!todo.date){
+        todoContentContainer.appendChild(dateInput)
+      }
+    
+      const dueDates = document.querySelectorAll('.due-date')
+      let removedChild
+      dueDates.forEach(dueDate=>{
+        if(dueDate.textContent === `Due on ${todo.dueDate}`){
+          removedChild = dueDate;
+        
+          dateInput.value = todo.date
+          todoContentContainer.removeChild(dueDate)
+          todoContentContainer.appendChild(dateInput)
+        }
+      })
+
+      const priorityDiv = document.createElement('div')
+      priorityDiv.style.display = 'flex'
+      priorityDiv.style.gap = '10px'
+
+      const priorityLabel = document.createElement('p')
+      priorityLabel.textContent = 'Make it a priority: '
+      const priorityButton = document.createElement('input')
+      priorityButton.type = 'checkbox'
+      priorityButton.style.width = "15px"
+
+      if(todo.priority === true){
+        priorityButton.checked = true
+      }
+    
+      console.log(todo.priority)
+
+      todoContentContainer.replaceChild(titleInput, todoTitle);
+      todoContentContainer.replaceChild(discriptionInput, todoDiscription);
+      todoContentContainer.appendChild(priorityDiv)
+      priorityDiv.appendChild(priorityLabel)
+      priorityDiv.appendChild(priorityButton)
+      titleInput.focus();
+
+      const saveButton = document.createElement("button");
+      saveButton.textContent = "Save Changes";
+      saveButton.classList.add("addTask-button");
+      saveButton.style.alignSelf = "flex-end";
+      saveButton.style.marginLeft = "auto";
+
+      const cancelButton = document.createElement("button");
+      cancelButton.textContent = "Cancel";
+      cancelButton.classList.add("cancel-button");
+      cancelButton.style.alignSelf = "flex-end";
+
+      cancelButton.addEventListener("click", () => {
+        todoDiv.appendChild(editButton);
+        todoDiv.append(deleteTodo);
+        todoDiv.removeChild(saveButton);
+        todoDiv.removeChild(cancelButton);
+        todoContentContainer.replaceChild(todoTitle, titleInput);
+        todoContentContainer.replaceChild(todoDiscription, discriptionInput);
+        todoContentContainer.removeChild(dateInput)
+        clearDisplay()
+        displayList(list)
+      });
+
+      todoDiv.appendChild(saveButton);
+      todoDiv.appendChild(cancelButton);
+      todoDiv.removeChild(deleteTodo);
+
+      saveButton.addEventListener("click", () => {
+        todo.title = titleInput.value;
+        todo.discription = discriptionInput.value;
+        if(dateInput.value){
+          todo.dueDate = format(dateInput.value,"dd/MM/yyyy")
+          todo.date = dateInput.value;
+        }
+        if(priorityButton.checked === true){
+          todo.priority = true
+        }else{
+          todo.priority = false
+        }
+        let todoList = JSON.parse(localStorage.getItem("todoList"));
+        todoList[index].title = titleInput.value;
+        todoList[index].discription = discriptionInput.value;
+        if(dateInput.value){
+          todoList[index].dueDate = format(dateInput.value,"dd/MM/yyyy")
+          todoList[index].date = dateInput.value
+        }
       
+        if(priorityButton.checked === true){
+          todoList[index].priority = true
+        }else{
+          todoList[index].priority = false
+        }
+        localStorage.setItem("todoList", JSON.stringify(todoList));
+
+        todoContentContainer.replaceChild(todoTitle, titleInput);
+        todoContentContainer.replaceChild(todoDiscription, discriptionInput);
+        todoDiv.replaceChild(editButton, saveButton);
+        clearDisplay();
+        displayList(list);
+      });
     });
 
     const deleteTodo = document.createElement("button");
     deleteTodo.classList = "delete-todo";
 
     deleteTodo.addEventListener("click", () => {
-      let trashItems = JSON.parse(localStorage.getItem('trashList'))
+      let trashItems = JSON.parse(localStorage.getItem("trashList"));
       trashItems.push(todo);
 
-      localStorage.setItem('trashList',JSON.stringify(trashItems))
+      localStorage.setItem("trashList", JSON.stringify(trashItems));
       list.splice(index, 1);
 
-      let objectArray = JSON.parse(localStorage.getItem('todoList'))
-      objectArray.splice(index,1)
-      localStorage.setItem('todoList', JSON.stringify(objectArray)) 
+      let objectArray = JSON.parse(localStorage.getItem("todoList"));
+      objectArray.splice(index, 1);
+      localStorage.setItem("todoList", JSON.stringify(objectArray));
 
       clearDisplay();
       displayList(list);
@@ -138,12 +234,14 @@ function displayList(list) {
           console.log("i am here daddy");
           const dueDate = document.createElement("p");
           dueDate.classList = "due-date";
+          dueDate.dataset.index = index;
           dueDate.textContent = `Due on ${todo.dueDate}`;
           dueDate.style.textDecoration = "line-through";
           todoContentContainer.appendChild(dueDate);
         } else {
           const dueDate = document.createElement("p");
           dueDate.classList = "due-date";
+          dueDate.dataset.index = index;
           dueDate.textContent = `Due on ${todo.dueDate}`;
           todoContentContainer.appendChild(dueDate);
         }
@@ -151,7 +249,7 @@ function displayList(list) {
 
       if (todo.priority) {
         todoDiv.className = "important todo-item";
-        todoButton.classList.add('important-todo-buttn')
+        todoButton.classList.add("important-todo-buttn");
       }
 
       //   if(todo.project){
@@ -166,4 +264,4 @@ function displayList(list) {
 }
 
 export default displayList;
-export { clearDisplay, playSound , completedNotification, trashNotification};
+export { clearDisplay, playSound, completedNotification, trashNotification };

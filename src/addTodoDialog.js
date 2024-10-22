@@ -31,7 +31,10 @@ dialogForm.addEventListener("submit", (e) => {
     newTask.setPriority(true)
  }
  let todoList = JSON.parse(localStorage.getItem('todoList')) 
-  todoList.push(newTask);
+ if(todoList === null){
+  todoList = []
+ } 
+ todoList.push(newTask);
 localStorage.setItem('todoList',JSON.stringify(todoList))
 
   clearDisplay();

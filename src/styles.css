@@ -40,7 +40,6 @@ body {
   width: 80%;
   align-self: center;
   line-height: 1.6;
-  cursor: pointer;
 }
 
 .todo-button {
@@ -66,6 +65,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 2px;
+ width: 70%;
 }
 .todo-title {
   font-size: 20px;
@@ -264,8 +264,12 @@ dialog form {
 
 /* date elements */
 #date,#edit-date {
-  background-color: #fdfdfd55;
+  background-color: #ffffff71;
+  color: black;
   border: none;
+  padding: 5px;
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
 .due-date {
   background-color: rgba(239, 62, 62, 0.408);

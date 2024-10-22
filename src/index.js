@@ -8,9 +8,10 @@ import upcomingList from "./upcoming";
 import { dialog } from "./addTodoDialog"; // Dialog Element
 import { completedNotification,trashNotification } from "./displayToDo";
 
-// import { todoList } from "./todoList";
 let todoList = JSON.parse(localStorage.getItem("todoList"));
-
+if(todoList ===  null){
+  todoList = []
+}
 // content DIV
 const contentDiv = document.querySelector(".content");
 
