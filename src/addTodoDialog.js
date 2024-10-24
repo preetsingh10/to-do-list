@@ -2,12 +2,15 @@ import ToDo from "./ToDo";
 // import { todoList } from ".";
 import { clearDisplay } from "./displayToDo";
 import displayList from "./displayToDo";
+import { updateUpcomingNotification } from "./upcoming";
 
 // Dialog Element
 const dialog = document.querySelector(".add-todo-dialog");
 const cancelButton = document.querySelector(".cancel-button");
 
 const dialogForm = document.querySelector(".dialog-form");
+const upcomingNotification = document.querySelector('.upcoming-notification')
+
 
 cancelButton.addEventListener("click", (e) => {
   dialog.close()
@@ -36,6 +39,7 @@ dialogForm.addEventListener("submit", (e) => {
  } 
  todoList.push(newTask);
 localStorage.setItem('todoList',JSON.stringify(todoList))
+updateUpcomingNotification(todoList)
 
   clearDisplay();
   displayList(todoList);
