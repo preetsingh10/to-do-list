@@ -11,7 +11,7 @@ const contentDiv = document.querySelector(".content");
 // notificaiton element
 const trashNotification = document.querySelector(".trash-notification");
 const completedNotification = document.querySelector(".completed-notification");
-const todayNotifaction = document.querySelector('.today-notificaiton') 
+const todayNotifaction = document.querySelector('.today-notification') 
 
 // function to play sound on completion
 function playSound() {
@@ -19,9 +19,15 @@ function playSound() {
   popAudio.play();
 }
 function updateTodayNotifiaction(list){
-  trashNotification.textContent = list.length;
+  todayNotifaction.textContent  = list.filter(todo=>{
+    let today = new Date()
+    let todoDate = new Date(todo.date)
+    return todoDate.getDay() == today.getDay() && todo.completed === false
+}).length;
+  todayNotifaction.classList = 'notification'
+  todayNotifaction.style.backgroundColor = 'red'
 
-  if (list.length === 0) {
+  if (todayNotifaction.textContent == 0) {
    todayNotifaction.textContent = "";
     todayNotifaction.classList = "";
   } 
@@ -48,6 +54,8 @@ function todayList(list) {
       let completedTasks = list.filter((task) => task.completed === true);
       completedNotification.textContent = completedTasks.length;
       completedNotification.classList.add("notification");
+
+      updateTodayNotifiaction(list)
 
       clearDisplay(); // Cleaning the display
       todayList(list); // Re render the whole List
@@ -192,6 +200,7 @@ function todayList(list) {
         todoContentContainer.replaceChild(todoTitle, titleInput);
         todoContentContainer.replaceChild(todoDiscription, discriptionInput);
         todoDiv.replaceChild(editButton, saveButton);
+        updateTodayNotifiaction(list)
         clearDisplay();
         todayList(list);
       });
@@ -210,6 +219,7 @@ function todayList(list) {
       let objectArray = JSON.parse(localStorage.getItem("todoList"));
       objectArray.splice(index, 1);
       localStorage.setItem("todoList", JSON.stringify(objectArray));
+      updateTodayNotifiaction(list)
 
       clearDisplay();
       todayList(list);
@@ -273,3 +283,4 @@ function todayList(list) {
 }
 
 export default todayList;
+export {updateTodayNotifiaction}

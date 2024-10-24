@@ -27,8 +27,9 @@ function updateUpcomingNotification(list) {
             return todoDate.getTime() > today.getTime() && todo.completed === false
   }).length;
   upcomingNotification.classList.add('notification')
+  upcomingNotification.style.backgroundColor = 'green'
 
-  if (list.length === 0) {
+  if (upcomingNotification.textContent == 0) {
     upcomingNotification.textContent = "";
     upcomingNotification.classList = "";
   }

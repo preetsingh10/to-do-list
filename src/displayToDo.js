@@ -10,6 +10,7 @@ const contentDiv = document.querySelector(".content");
 // notificaiton element
 const trashNotification = document.querySelector(".trash-notification");
 const completedNotification = document.querySelector(".completed-notification");
+const todayNotifaction = document.querySelector('.today-notificaiton') 
 
 // function to clear display
 function clearDisplay() {

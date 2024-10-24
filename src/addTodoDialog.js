@@ -3,6 +3,7 @@ import ToDo from "./ToDo";
 import { clearDisplay } from "./displayToDo";
 import displayList from "./displayToDo";
 import { updateUpcomingNotification } from "./upcoming";
+import { updateTodayNotifiaction } from "./today";
 
 // Dialog Element
 const dialog = document.querySelector(".add-todo-dialog");
@@ -40,6 +41,8 @@ dialogForm.addEventListener("submit", (e) => {
  todoList.push(newTask);
 localStorage.setItem('todoList',JSON.stringify(todoList))
 updateUpcomingNotification(todoList)
+updateTodayNotifiaction(todoList)
+
 
   clearDisplay();
   displayList(todoList);

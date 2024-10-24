@@ -3,11 +3,12 @@ import displayList from "./displayToDo";
 import { clearDisplay } from "./displayToDo";
 import { completedList } from "./completed";
 import trashList from "./trash";
-import todayList from "./today";
+import todayList, { updateTodayNotifiaction } from "./today";
 import upcomingList from "./upcoming";
 import { dialog } from "./addTodoDialog"; // Dialog Element
 import { completedNotification,trashNotification } from "./displayToDo";
 import { updateUpcomingNotification } from "./upcoming";
+
 
 let todoList = JSON.parse(localStorage.getItem("todoList"));
 if(todoList ===  null){
@@ -52,6 +53,7 @@ today.addEventListener("click", () => {
   }
 
   todayList(todoList);
+  updateTodayNotifiaction(todoList)
   console.log(todoList);
 });
 
@@ -84,6 +86,7 @@ contentHeading.textContent = "Today's tasks";
 
 todayList(todoList); // to display the todo list on refresh
 updateUpcomingNotification(todoList)
+updateTodayNotifiaction(todoList)
 
 
 // sidbar notifiactions
