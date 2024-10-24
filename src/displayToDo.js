@@ -23,10 +23,9 @@ function playSound() {
 }
 let isEditOpen = false;
 
-function displayList(list, index) {
+function displayList(list, dueToday) {
   // ITERATING THROUGH ALL THE TODO OBJECTS
   list.forEach((todo, index) => {
-    
     const todoButton = document.createElement("input"); // TO DO CHECK LIST BUTTON
     todoButton.type = "checkbox";
     todoButton.classList = "todo-button";
@@ -83,49 +82,49 @@ function displayList(list, index) {
       }
       discriptionInput.id = "discription";
 
-      const dateInput = document.createElement('input')
-      dateInput.type = 'date'
-      dateInput.id = 'date'
-      dateInput.style.width = 'fit-content'
+      const dateInput = document.createElement("input");
+      dateInput.type = "date";
+      dateInput.id = "date";
+      dateInput.style.width = "fit-content";
 
-    
-      if(!todo.date){
-        todoContentContainer.appendChild(dateInput)
+      if (!todo.date) {
+        todoContentContainer.appendChild(dateInput);
       }
-    
-      const dueDates = document.querySelectorAll('.due-date')
-      let removedChild
-      dueDates.forEach(dueDate=>{
-        if(dueDate.textContent === `Due on ${todo.dueDate}`){
+
+      const dueDates = document.querySelectorAll(".due-date");
+      let removedChild;
+
+      dueDates.forEach((dueDate) => {
+        // console.log(dueDate.dataset.index)
+        if (dueDate.dataset.index == index) {
           removedChild = dueDate;
-        
-          dateInput.value = todo.date
-          todoContentContainer.removeChild(dueDate)
-          todoContentContainer.appendChild(dateInput)
+          dateInput.value = todo.date;
+          todoContentContainer.removeChild(dueDate);
+          todoContentContainer.appendChild(dateInput);
         }
-      })
+      });
 
-      const priorityDiv = document.createElement('div')
-      priorityDiv.style.display = 'flex'
-      priorityDiv.style.gap = '10px'
+      const priorityDiv = document.createElement("div");
+      priorityDiv.style.display = "flex";
+      priorityDiv.style.gap = "10px";
 
-      const priorityLabel = document.createElement('p')
-      priorityLabel.textContent = 'Make it a priority: '
-      const priorityButton = document.createElement('input')
-      priorityButton.type = 'checkbox'
-      priorityButton.style.width = "15px"
+      const priorityLabel = document.createElement("p");
+      priorityLabel.textContent = "Make it a priority: ";
+      const priorityButton = document.createElement("input");
+      priorityButton.type = "checkbox";
+      priorityButton.style.width = "15px";
 
-      if(todo.priority === true){
-        priorityButton.checked = true
+      if (todo.priority === true) {
+        priorityButton.checked = true;
       }
-    
-      console.log(todo.priority)
+
+      console.log(todo.priority);
 
       todoContentContainer.replaceChild(titleInput, todoTitle);
       todoContentContainer.replaceChild(discriptionInput, todoDiscription);
-      todoContentContainer.appendChild(priorityDiv)
-      priorityDiv.appendChild(priorityLabel)
-      priorityDiv.appendChild(priorityButton)
+      todoContentContainer.appendChild(priorityDiv);
+      priorityDiv.appendChild(priorityLabel);
+      priorityDiv.appendChild(priorityButton);
       titleInput.focus();
 
       const saveButton = document.createElement("button");
@@ -146,9 +145,9 @@ function displayList(list, index) {
         todoDiv.removeChild(cancelButton);
         todoContentContainer.replaceChild(todoTitle, titleInput);
         todoContentContainer.replaceChild(todoDiscription, discriptionInput);
-        todoContentContainer.removeChild(dateInput)
-        clearDisplay()
-        displayList(list)
+        todoContentContainer.removeChild(dateInput);
+        clearDisplay();
+        displayList(list);
       });
 
       todoDiv.appendChild(saveButton);
@@ -158,27 +157,27 @@ function displayList(list, index) {
       saveButton.addEventListener("click", () => {
         todo.title = titleInput.value;
         todo.discription = discriptionInput.value;
-        if(dateInput.value){
-          todo.dueDate = format(dateInput.value,"dd/MM/yyyy")
+        if (dateInput.value) {
+          todo.dueDate = format(dateInput.value, "dd/MM/yyyy");
           todo.date = dateInput.value;
         }
-        if(priorityButton.checked === true){
-          todo.priority = true
-        }else{
-          todo.priority = false
+        if (priorityButton.checked === true) {
+          todo.priority = true;
+        } else {
+          todo.priority = false;
         }
         let todoList = JSON.parse(localStorage.getItem("todoList"));
         todoList[index].title = titleInput.value;
         todoList[index].discription = discriptionInput.value;
-        if(dateInput.value){
-          todoList[index].dueDate = format(dateInput.value,"dd/MM/yyyy")
-          todoList[index].date = dateInput.value
+        if (dateInput.value) {
+          todoList[index].dueDate = format(dateInput.value, "dd/MM/yyyy");
+          todoList[index].date = dateInput.value;
         }
-      
-        if(priorityButton.checked === true){
-          todoList[index].priority = true
-        }else{
-          todoList[index].priority = false
+
+        if (priorityButton.checked === true) {
+          todoList[index].priority = true;
+        } else {
+          todoList[index].priority = false;
         }
         localStorage.setItem("todoList", JSON.stringify(todoList));
 
@@ -195,6 +194,9 @@ function displayList(list, index) {
 
     deleteTodo.addEventListener("click", () => {
       let trashItems = JSON.parse(localStorage.getItem("trashList"));
+      if (trashItems === null) {
+        trashItems = [];
+      }
       trashItems.push(todo);
 
       localStorage.setItem("trashList", JSON.stringify(trashItems));

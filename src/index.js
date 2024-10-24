@@ -36,12 +36,20 @@ general.addEventListener("click", () => {
   contentHeading.textContent = "General";
   clearDisplay();
   todoList = JSON.parse(localStorage.getItem("todoList"));
+  if(todoList ===  null){
+    todoList = []
+  }
   displayList(todoList);
 });
 
 today.addEventListener("click", () => {
-  contentHeading.textContent = "Today";
+  contentHeading.textContent = "Today's Task";
   clearDisplay();
+  todoList = JSON.parse(localStorage.getItem("todoList"));
+  if(todoList === null){
+    todoList = []
+  }
+
   todayList(todoList);
   console.log(todoList);
 });
@@ -61,14 +69,17 @@ completed.addEventListener("click", () => {
 trash.addEventListener("click", () => {
   contentHeading.textContent = "Trash Items";
   let trashItems = JSON.parse(localStorage.getItem("trashList"));
+  if(trashItems === null){
+    trashItems = []
+  }
 
   clearDisplay();
   trashList(trashItems);
 });
 
-contentHeading.textContent = "General";
+contentHeading.textContent = "Today's tasks";
 
-displayList(todoList); // to display the todo list on refresh
+todayList(todoList); // to display the todo list on refresh
 
 
 
