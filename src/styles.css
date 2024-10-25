@@ -92,7 +92,7 @@ body {
   color: white;
 }
 
-.delete-todo {
+.delete-todo, .delete-project-button {
   align-self: center;
   height: 30px;
   width: 30px;
@@ -103,7 +103,7 @@ body {
   cursor: pointer;
 }
 
-.delete-todo:hover {
+.delete-todo:hover, .delete-project-button:hover {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='30px' viewBox='0 -960 960 960' width='30px' fill='red'%3E%3Cpath d='M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z'/%3E%3C/svg%3E");
 }
 
@@ -152,18 +152,19 @@ body {
 
   cursor: pointer;
 }
-.setting-container li {
+.setting-container li, .add-project-listItem {
   font-size: 20px;
   padding: 10px;
   display: flex;
   gap: 10px;
+  cursor: pointer;
 }
 svg {
   width: 1em;
   height: 1em;
 }
 
-.setting-container li:hover {
+.setting-container li:hover , .add-project-listItem:hover, .project-display:hover{
   background-color: rgba(255, 255, 255, 0.163);
 }
 
@@ -176,6 +177,41 @@ svg {
   color: white;
   padding: 2.5px 7px;
   border-radius: 100px;
+}
+.project-container{
+  overflow: auto;
+  height: 50%;
+}
+.project-list-container{
+  display: flex;
+  flex-direction: column;
+justify-content: center;
+  gap: 10px;
+}
+.project-display{
+  list-style: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+ padding-left: 1em;
+ flex-wrap: wrap;
+}
+
+.project-display::before{
+  content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="%23000000"><path d="m240-160 40-160H120l20-80h160l40-160H180l20-80h160l40-160h80l-40 160h160l40-160h80l-40 160h160l-20 80H660l-40 160h160l-20 80H600l-40 160h-80l40-160H360l-40 160h-80Zm140-240h160l40-160H420l-40 160Z"/></svg>');
+
+}
+.delete-project-button{
+  margin-left: auto;
+  margin-right: 2em;
+  height: 20px;
+  width: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='20px' viewBox='0 -960 960 960' width='20px' fill='%23000000'%3E%3Cpath d='M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z'/%3E%3C/svg%3E");
+}
+.delete-project-button:hover{
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='20px' viewBox='0 -960 960 960' width='20px' fill='red'%3E%3Cpath d='M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z'/%3E%3C/svg%3E");
+ 
 }
 
 /* DIALOG  */
@@ -206,7 +242,7 @@ dialog form {
   width: 30em;
 }
 #title,
-#discription,#edit-title, #edit-discription {
+#discription,#edit-title, #edit-discription, #name {
   margin-left: 10px;
   background-color: transparent;
   border: none;
@@ -217,7 +253,7 @@ dialog form {
 ::placeholder {
   color: black;
 }
-#title, #edit-title {
+#title, #edit-title, #name{
   font-size: 20px;
   font-weight: 500;
 
@@ -244,7 +280,7 @@ dialog form {
   transition-duration: 0.1s;
 }
 .cancel-button,
-.addTask-button, .cancel-edit-button, .saveChanges-button {
+.addTask-button, .cancel-edit-button, .saveChanges-button , .cancel-project-button, .add-project-button{
   outline: none;
   cursor: pointer;
   font-size: 16px;
@@ -255,12 +291,28 @@ dialog form {
   border: none;
   color: #fff;
 }
-.cancel-button, .cancel-edit-button {
+.cancel-button, .cancel-edit-button , .cancel-project-button{
   background-color: red;
 }
-.addTask-button, .saveChanges-button {
+.addTask-button, .saveChanges-button , .add-project-button{
   background-color: rgb(36, 174, 36);
   margin-right: 10px;
+}
+.add-project-form{
+  gap:10px;
+}
+.add-project-dialog{
+padding: 10px;
+}
+#name{
+  border: 1px solid grey;
+  border-radius: 4px;
+  padding: 5px;
+}
+.project-button-container{
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
 

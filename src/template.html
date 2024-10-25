@@ -72,11 +72,38 @@
         </li>
       </ul>
     </div>
+    <h2>My Projects</h2>
+    <li class="add-project-listItem">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000">
+        <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
+      </svg>
+      Add Project
+    </li>
     <div class="project-container">
-      <h2>My Projects</h2>
+      <div>
+        <dialog class="add-project-dialog">
+          <form method="dialog" class="add-project-form">
+            <label style="font-weight: 500; font-size: 20px;" for="name">Project Name:</label>
+            <input type="text" name="name" id="name">
+            <div class="project-button-container">
+              <button type="button" class="cancel-project-button">Cancel</button>
+              <button type="submit" class="add-project-button">Add</button>
+            </div>
+          </form>
+        </dialog>
+      </div>
       <ul class="project-list-container">
 
       </ul>
+      <dialog class="confirm-delete-dialog">
+        <form method="dialog">
+          <h3>Project will be permanently deleted</h3>
+          <div class="confirm-delete-button-container">
+            <button class="cancel-confirm-button" type="button">Cancel</button>
+            <button class="delete-confirm-button" type="button">Delete</button>
+          </div>
+        </form>
+      </dialog>
     </div>
   </div>
 

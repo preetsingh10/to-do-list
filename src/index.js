@@ -9,7 +9,10 @@ import upcomingList from "./upcoming";
 import { dialog } from "./addTodoDialog"; // Dialog Element
 import { completedNotification, trashNotification } from "./displayToDo";
 import { updateUpcomingNotification } from "./upcoming";
+import { addProjectDialog } from "./addProject";
+import { updateProjectDisplay } from "./addProject";
 
+// if there is no dat in local storage the code below will make empty arrays 
 let todoList = JSON.parse(localStorage.getItem("todoList"));
 if (todoList === null) {
   todoList = [];
@@ -18,6 +21,11 @@ let trashItems = JSON.parse(localStorage.getItem("trashList"));
 if(trashItems === null){
   trashItems = []
   localStorage.setItem('trashList',JSON.stringify(trashItems))
+}
+let projectList = JSON.parse(localStorage.getItem("projectList"))
+if(projectList === null){
+  projectList = []
+  localStorage.setItem('projectList',JSON.stringify(projectList))
 }
 
 // content DIV
@@ -33,6 +41,9 @@ const today = document.querySelector(".today-listItem");
 const upcoming = document.querySelector(".upcoming-listItem");
 const completed = document.querySelector(".completed-listItem");
 const trash = document.querySelector(".trash-listItem");
+const addProject = document.querySelector('.add-project-listItem')
+
+
 
 // event listeners
 
@@ -88,11 +99,17 @@ trash.addEventListener("click", () => {
   trashList(trashItems);
 });
 
-contentHeading.textContent = "Today's tasks";
+addProject.addEventListener('click',()=>{
+addProjectDialog.showModal()
+})
 
+// ON Refresh and defaults template state
+
+contentHeading.textContent = "Today's tasks";
 todayList(todoList); // to display the todo list on refresh
-updateUpcomingNotification(todoList);
-updateTodayNotifiaction(todoList);
+updateProjectDisplay()
+
+
 
 // sidbar notifiactions
 
@@ -108,5 +125,7 @@ if (trashItems > 0) {
   trashNotification.textContent = trashItems;
   trashNotification.classList.add("notification");
 }
+updateUpcomingNotification(todoList);
+updateTodayNotifiaction(todoList);
 
 export { todoList };

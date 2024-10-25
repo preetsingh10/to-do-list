@@ -22,7 +22,7 @@ function updateTodayNotifiaction(list){
   todayNotifaction.textContent  = list.filter(todo=>{
     let today = new Date()
     let todoDate = new Date(todo.date)
-    return todoDate.getDay() == today.getDay() && todo.completed === false
+    return todoDate.getDate() == today.getDate() && todo.completed === false
 }).length;
   todayNotifaction.classList = 'notification'
   todayNotifaction.style.backgroundColor = 'red'
