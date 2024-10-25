@@ -21,6 +21,9 @@ function playSound() {
 }
 
 function updateUpcomingNotification(list) {
+  if(list === null){
+    return null
+  }
   upcomingNotification.textContent = list.filter(todo=>{
             let today = new Date()
             let todoDate = new Date(todo.date)
@@ -39,6 +42,9 @@ let isEditOpen = false;
 
 function upcomingList(list) {
   // ITERATING THROUGH ALL THE TODO OBJECTS
+  if(list === null){
+    return 0
+  }
   list.forEach((todo, index) => {
     const todoButton = document.createElement("input"); // TO DO CHECK LIST BUTTON
     todoButton.type = "checkbox";

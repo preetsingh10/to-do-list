@@ -3,17 +3,23 @@ import displayList from "./displayToDo";
 import { clearDisplay } from "./displayToDo";
 import { completedList } from "./completed";
 import trashList from "./trash";
+
 import todayList, { updateTodayNotifiaction } from "./today";
 import upcomingList from "./upcoming";
 import { dialog } from "./addTodoDialog"; // Dialog Element
-import { completedNotification,trashNotification } from "./displayToDo";
+import { completedNotification, trashNotification } from "./displayToDo";
 import { updateUpcomingNotification } from "./upcoming";
 
-
 let todoList = JSON.parse(localStorage.getItem("todoList"));
-if(todoList ===  null){
-  todoList = []
+if (todoList === null) {
+  todoList = [];
 }
+let trashItems = JSON.parse(localStorage.getItem("trashList"));
+if(trashItems === null){
+  trashItems = []
+  localStorage.setItem('trashList',JSON.stringify(trashItems))
+}
+
 // content DIV
 const contentDiv = document.querySelector(".content");
 
@@ -38,8 +44,8 @@ general.addEventListener("click", () => {
   contentHeading.textContent = "General";
   clearDisplay();
   todoList = JSON.parse(localStorage.getItem("todoList"));
-  if(todoList ===  null){
-    todoList = []
+  if (todoList === null) {
+    todoList = [];
   }
   displayList(todoList);
 });
@@ -48,19 +54,19 @@ today.addEventListener("click", () => {
   contentHeading.textContent = "Today's Task";
   clearDisplay();
   todoList = JSON.parse(localStorage.getItem("todoList"));
-  if(todoList === null){
-    todoList = []
+  if (todoList === null) {
+    todoList = [];
   }
 
   todayList(todoList);
-  updateTodayNotifiaction(todoList)
+  updateTodayNotifiaction(todoList);
   console.log(todoList);
 });
 
 upcoming.addEventListener("click", () => {
   contentHeading.textContent = "Up Coming Tasks's";
   todoList = JSON.parse(localStorage.getItem("todoList"));
-  updateUpcomingNotification(todoList)
+  updateUpcomingNotification(todoList);
   clearDisplay();
   upcomingList(todoList);
 });
@@ -73,9 +79,9 @@ completed.addEventListener("click", () => {
 
 trash.addEventListener("click", () => {
   contentHeading.textContent = "Trash Items";
-  let trashItems = JSON.parse(localStorage.getItem("trashList"));
-  if(trashItems === null){
-    trashItems = []
+  trashItems = JSON.parse(localStorage.getItem("trashList"));
+  if (trashItems === null) {
+    trashItems = [];
   }
 
   clearDisplay();
@@ -85,21 +91,20 @@ trash.addEventListener("click", () => {
 contentHeading.textContent = "Today's tasks";
 
 todayList(todoList); // to display the todo list on refresh
-updateUpcomingNotification(todoList)
-updateTodayNotifiaction(todoList)
-
+updateUpcomingNotification(todoList);
+updateTodayNotifiaction(todoList);
 
 // sidbar notifiactions
 
 // for the completed task notification on refresh and general
-let completedTasks = todoList.filter((todo) => todo.completed === true).length
-if(completedTasks > 0){
+let completedTasks = todoList.filter((todo) => todo.completed === true).length;
+if (completedTasks > 0) {
   completedNotification.textContent = completedTasks;
   completedNotification.classList.add("notification");
 }
 
-let trashItems = JSON.parse(localStorage.getItem("trashList")).length;
-if(trashItems > 0){
+ trashItems = JSON.parse(localStorage.getItem("trashList")).length;
+if (trashItems > 0) {
   trashNotification.textContent = trashItems;
   trashNotification.classList.add("notification");
 }

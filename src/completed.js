@@ -5,6 +5,9 @@ const completedNotification = document.querySelector(".completed-notification");
 
 
 function completedList(list) {
+  if(list === null){
+    return 0
+  }
   // ITERATING THROUGH ALL THE TODO OBJECTS
   list.forEach((todo,index) => {
     const todoButton = document.createElement("input"); // TO DO CHECK LIST BUTTON
