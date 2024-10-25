@@ -280,7 +280,7 @@ dialog form {
   transition-duration: 0.1s;
 }
 .cancel-button,
-.addTask-button, .cancel-edit-button, .saveChanges-button , .cancel-project-button, .add-project-button{
+.addTask-button, .cancel-edit-button, .saveChanges-button , .cancel-project-button, .add-project-button, .cancel-confirm-button, .delete-confirm-button{
   outline: none;
   cursor: pointer;
   font-size: 16px;
@@ -291,10 +291,10 @@ dialog form {
   border: none;
   color: #fff;
 }
-.cancel-button, .cancel-edit-button , .cancel-project-button{
+.cancel-button, .cancel-edit-button , .cancel-project-button, .delete-confirm-button{
   background-color: red;
 }
-.addTask-button, .saveChanges-button , .add-project-button{
+.addTask-button, .saveChanges-button , .add-project-button, .cancel-confirm-button{
   background-color: rgb(36, 174, 36);
   margin-right: 10px;
 }
@@ -314,7 +314,22 @@ padding: 10px;
   justify-content: flex-end;
   gap: 10px;
 }
+.confirm-delete-dialog{
+  padding: 1em;
+  padding-bottom: .5em;
+  min-width: fit-content;
+  font-size: 20px;
+font-weight: 500;
+}
+.confirm-delete-dialog form{
+  width: 350px;
+}
+.confirm-delete-button-container{
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
 
+}
 
 /* date elements */
 #date,#edit-date {
