@@ -12,6 +12,7 @@ import { updateUpcomingNotification } from "./upcoming";
 import { addProjectDialog } from "./addProject";
 import { updateProjectDisplay } from "./addProject";
 
+
 // if there is no dat in local storage the code below will make empty arrays 
 let todoList = JSON.parse(localStorage.getItem("todoList"));
 if (todoList === null) {
@@ -33,6 +34,7 @@ const contentDiv = document.querySelector(".content");
 
 // content Heading
 const contentHeading = document.querySelector(".content-heading");
+const contentButtonContainer = document.querySelector('.add-task-button-container')
 
 // Sidebar Elements
 const addTask = document.querySelector(".addTask-listItem");
@@ -59,6 +61,7 @@ general.addEventListener("click", () => {
     todoList = [];
   }
   displayList(todoList);
+  contentButtonContainer.innerHTML = ' '
 });
 
 today.addEventListener("click", () => {
@@ -71,8 +74,9 @@ today.addEventListener("click", () => {
 
   todayList(todoList);
   updateTodayNotifiaction(todoList);
-  console.log(todoList);
+  contentButtonContainer.innerHTML = ' '
 });
+
 
 upcoming.addEventListener("click", () => {
   contentHeading.textContent = "Up Coming Tasks's";
@@ -80,12 +84,14 @@ upcoming.addEventListener("click", () => {
   updateUpcomingNotification(todoList);
   clearDisplay();
   upcomingList(todoList);
+    contentButtonContainer.innerHTML = ' '
 });
 
 completed.addEventListener("click", () => {
   contentHeading.textContent = "Completed Task's";
   clearDisplay();
   completedList(todoList);
+    contentButtonContainer.innerHTML = ' '
 });
 
 trash.addEventListener("click", () => {
@@ -96,6 +102,7 @@ trash.addEventListener("click", () => {
   }
 
   clearDisplay();
+  contentButtonContainer.innerHTML = ' '
   trashList(trashItems);
 });
 

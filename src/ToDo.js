@@ -22,6 +22,11 @@ class ToDo {
   setProject(projectName){
     this.project = projectName
   }
+
+  assignProject(projectName){
+    this.projectName = projectName
+    this.PorjectTodos = []
+  }
 }
 
 export default ToDo;

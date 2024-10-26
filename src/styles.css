@@ -5,6 +5,7 @@
 }
 
 body {
+  
   background: #67b26f; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to right,
@@ -16,11 +17,23 @@ body {
     #4ca2cd,
     #67b26f
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 100px 100vh;
   overflow: hidden;
+}
+.content-heading-container{
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  align-items: flex-end;
+
+}
+.content-heading{
+
+}
+.add-task-button{
+
 }
 .content {
   display: flex;
@@ -332,7 +345,7 @@ font-weight: 500;
 }
 
 /* date elements */
-#date,#edit-date {
+#date,#edit-date, #project-dropdown {
   background-color: #ffffff71;
   color: black;
   border: none;

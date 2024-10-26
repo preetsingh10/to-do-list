@@ -18,7 +18,14 @@
     <h1>To Do App</h1>
   </div>
   <div>
-    <h1 class="content-heading"></h1>
+    <div class="content-heading-container">
+      <div>
+        <h1 class="content-heading"></h1>
+      </div>
+
+      <div class="add-task-button-container"></div>
+    </div>
+
   </div>
   <div class="sidebar">
     <div class="setting-container">
@@ -131,7 +138,12 @@
           <label for="priority">Make it a priority</label>
         </div>
       </div>
-
+      <div>
+        <label for="project-dropdown">Assign to the project: </label>
+        <select name="project" id="project-dropdown">
+          <option value="general">General</option>
+        </select>
+      </div>
       <hr color="black" />
       <div class="button-container">
         <button type="button" class="cancel-button">Cancel</button>
