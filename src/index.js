@@ -29,6 +29,8 @@ if(projectList === null){
   localStorage.setItem('projectList',JSON.stringify(projectList))
 }
 
+// content DIV
+const contentDiv = document.querySelector(".content");
 
 // content Heading
 const contentHeading = document.querySelector(".content-heading");
@@ -113,8 +115,6 @@ addProjectDialog.showModal()
 contentHeading.textContent = "Today's tasks";
 todayList(todoList); // to display the todo list on refresh
 updateProjectDisplay()
-
-
 
 // sidbar notifiactions
 
