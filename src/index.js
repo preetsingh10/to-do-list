@@ -29,8 +29,6 @@ if(projectList === null){
   localStorage.setItem('projectList',JSON.stringify(projectList))
 }
 
-// content DIV
-const contentDiv = document.querySelector(".content");
 
 // content Heading
 const contentHeading = document.querySelector(".content-heading");
