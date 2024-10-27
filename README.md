@@ -15,3 +15,7 @@ live-preview: https://preetsingh10.github.io/to-do-list
 - CSS
 - JavaScript
 
+<<<<<<< HEAD
+=======
+live-preview: https://preetsingh10.github.io/to-do-list
+>>>>>>> origin/main
