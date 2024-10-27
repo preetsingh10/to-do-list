@@ -2,8 +2,6 @@ import popSound from "./audio/pop.mp3";
 import { format } from "date-fns";
 
 const div = document.querySelector(".content"); // selecting the content container
-const projectListContainer = document.querySelector("project-list-container");
-
 // content DIV
 const contentDiv = document.querySelector(".content");
 
@@ -24,7 +22,7 @@ function playSound() {
 }
 let isEditOpen = false;
 
-function displayList(list ) {
+function displayProjectList(list,project) {
   // ITERATING THROUGH ALL THE TODO OBJECTS
   list.forEach((todo, index) => {
     const todoButton = document.createElement("input"); // TO DO CHECK LIST BUTTON
@@ -44,7 +42,7 @@ function displayList(list ) {
       completedNotification.classList.add("notification");
 
       clearDisplay(); // Cleaning the display
-      displayList(list); // Re render the whole List
+      displayProjectList(list,project); // Re render the whole List
     });
 
     const todoDiv = document.createElement("div");
@@ -148,7 +146,7 @@ function displayList(list ) {
         todoContentContainer.replaceChild(todoDiscription, discriptionInput);
         todoContentContainer.removeChild(dateInput);
         clearDisplay();
-        displayList(list);
+        displayProjectList(list,project);
       });
 
       todoDiv.appendChild(saveButton);
@@ -186,7 +184,7 @@ function displayList(list ) {
         todoContentContainer.replaceChild(todoDiscription, discriptionInput);
         todoDiv.replaceChild(editButton, saveButton);
         clearDisplay();
-        displayList(list);
+        displayProjectList(list,project);
       });
     });
 
@@ -208,7 +206,7 @@ function displayList(list ) {
       localStorage.setItem("todoList", JSON.stringify(objectArray));
 
       clearDisplay();
-      displayList(list);
+      displayProjectList(list,project);
 
       trashNotification.textContent = trashItems.length;
       trashNotification.classList = "notification";
@@ -217,8 +215,8 @@ function displayList(list ) {
     todoTitle.textContent = todo.title;
     todoDiscription.textContent = todo.discription;
 
-    // check for the task completion
-    if (todo.completed === false && todo.project === 'general') {
+    
+    if (todo.project && todo.completed === false&&todo.project === project.projectName) {
       div.appendChild(todoDiv);
 
       todoDiv.appendChild(todoButton);
@@ -255,10 +253,15 @@ function displayList(list ) {
         todoButton.classList.add("important-todo-buttn");
       }
 
-  
+      //   if(todo.project){
+
+      //     const project = document.createElement("li")
+      //     project.textContent = `${todo.project}`
+      //     projectListContainer.appendChild(project)
+
+      //   }
     }
   });
 }
 
-export default displayList;
-export { clearDisplay, playSound, completedNotification, trashNotification };
+export default displayProjectList;

@@ -1,6 +1,10 @@
 import { add } from "date-fns";
 import ToDo from "./ToDo";
 import { dialog } from "./addTodoDialog";
+import displayList from "./displayToDo";
+import displayProjectList from "./displayProjects";
+
+const content = document.querySelector('.content')
 
 const addProjectDialog = document.querySelector(".add-project-dialog");
 
@@ -30,7 +34,7 @@ function updateProjectDisplay() {
   }
 
   projectListContainer.innerHTML = " ";
-  projectDropdown.innerHTML = ' '
+  projectDropdown.innerHTML = `<option value="general"> General</option>`
   generateProjectListDom(projectList);
   updateProjectDropdown(projectList)
 }
@@ -42,6 +46,7 @@ function updateProjectDropdown(projectList){
     projectList.forEach(project=>{
         const projectOption = document.createElement('option') 
         projectOption.textContent = project.projectName
+        projectOption.value = project.projectName
         projectDropdown.appendChild(projectOption)
     })   
 }
@@ -57,6 +62,7 @@ function generateProjectListDom(projectList) {
       projectDisplay.textContent = project.projectName;
       projectDisplay.classList.add("project-display");
 
+      // eventlistener for each project on sidebar
       projectDisplay.addEventListener("click", () => {
 
         const addTaskButton = document.createElement("button");
@@ -68,6 +74,16 @@ function generateProjectListDom(projectList) {
         addTaskButton.addEventListener('click',()=>{
             dialog.showModal()
         })
+
+        let todoList = JSON.parse(localStorage.getItem('todoList'))
+        content.innerHTML = ' ' // to clear previous tasks
+      
+        if(project.projectName){
+            displayProjectList(todoList,project)
+        }
+       
+       
+
         contentHeading.textContent = `Project: ${project.projectName}`;
         contentButtonContainer.innerHTML = '' // to remove perivious buttons
         contentButtonContainer.appendChild(addTaskButton);

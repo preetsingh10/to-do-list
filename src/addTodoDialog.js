@@ -10,7 +10,6 @@ const dialog = document.querySelector(".add-todo-dialog");
 const cancelButton = document.querySelector(".cancel-button");
 
 const dialogForm = document.querySelector(".dialog-form");
-const upcomingNotification = document.querySelector('.upcoming-notification')
 
 
 cancelButton.addEventListener("click", (e) => {
@@ -25,7 +24,7 @@ dialogForm.addEventListener("submit", (e) => {
   const discription = formData.get("discription");
   const date = formData.get("date");
   const priority = formData.get("priority")
-
+const project = formData.get('project')
   let newTask = new ToDo(title, discription);
   if(date){
     newTask.setDueDate(date);
@@ -33,6 +32,9 @@ dialogForm.addEventListener("submit", (e) => {
   }
  if(priority){
     newTask.setPriority(true)
+ }
+ if(project){
+  newTask.setProject(project)
  }
  let todoList = JSON.parse(localStorage.getItem('todoList')) 
  if(todoList === null){

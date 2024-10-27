@@ -2,6 +2,7 @@ import { clearDisplay, playSound } from "./displayToDo";
 
 const div = document.querySelector(".content"); // selecting the content container
 const completedNotification = document.querySelector(".completed-notification");
+const trashNotification = document.querySelector(".trash-notification");
 
 
 function completedList(list) {
@@ -63,11 +64,36 @@ function completedList(list) {
     todoTitle.textContent = todo.title;
     todoDiscription.textContent = todo.description;
 
+    const deleteTodo = document.createElement("button");
+    deleteTodo.classList = "delete-todo";
+
+    deleteTodo.addEventListener("click", () => {
+      let trashItems = JSON.parse(localStorage.getItem("trashList"));
+      if (trashItems === null) {
+        trashItems = [];
+      }
+      trashItems.push(todo);
+
+      localStorage.setItem("trashList", JSON.stringify(trashItems));
+      list.splice(index, 1);
+
+      let objectArray = JSON.parse(localStorage.getItem("todoList"));
+      objectArray.splice(index, 1);
+      localStorage.setItem("todoList", JSON.stringify(objectArray));
+
+      clearDisplay();
+      completedList(list);
+
+      trashNotification.textContent = trashItems.length;
+      trashNotification.classList = "notification";
+    });
+
     if (todo.completed === true) {
       div.appendChild(todoDiv);
 
       todoDiv.appendChild(todoButton);
       todoDiv.appendChild(todoContentContainer);
+      todoDiv.appendChild(deleteTodo);
 
       todoContentContainer.appendChild(todoTitle);
       todoContentContainer.appendChild(todoDiscription);

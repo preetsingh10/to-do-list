@@ -25,7 +25,7 @@ class ToDo {
 
   assignProject(projectName){
     this.projectName = projectName
-    this.PorjectTodos = []
+    this.projectTasks = []
   }
 }
 

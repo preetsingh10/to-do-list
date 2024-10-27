@@ -91,7 +91,7 @@
         <dialog class="add-project-dialog">
           <form method="dialog" class="add-project-form">
             <label style="font-weight: 500; font-size: 20px;" for="name">Project Name:</label>
-            <input type="text" name="name" id="name">
+            <input type="text" name="name" id="name" maxlength="40">
             <div class="project-button-container">
               <button type="button" class="cancel-project-button">Cancel</button>
               <button type="submit" class="add-project-button">Add</button>
@@ -139,7 +139,7 @@
         </div>
       </div>
       <div>
-        <label for="project-dropdown">Assign to the project: </label>
+        <label for="project-dropdown">Assign to : </label>
         <select name="project" id="project-dropdown">
           <option value="general">General</option>
         </select>
